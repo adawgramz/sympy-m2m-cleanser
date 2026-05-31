@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "name": "M2M Autonomous Agent Cleansing Engine (Base)",
+    "type": "algorithm",
+    "author": "Core TEE Engineer",
+    "license": "MIT",
+    "description": "Autonomous pay-per-parse TEE engine designed for M2M agents running on the Base Network. Cleanses analytical data drift and machine hallucinations using zero-network Babylonian nodal arrays and dimensionless geometric ratios."
+  },
+  "services": [
+    {
+      "type": "compute",
+      "concurrency": 100,
+      "privacy": {
+        "publisherTrustedAlgorithmPublishers": null,
+        "publisherTrustedAlgorithms": [],
+        "allowNetworkAccess": false,
+        "allowRawAlgorithm": false
+      },
+      "compute": {
+        "namespace": "ocean-compute",
+        "cpu": 1,
+        "gpu": 0,
+        "ram": "1Gi",
+        "time": 60
+      }
+    }
+  ],
+  "algorithm": {
+    "language": "python",
+    "format": "docker",
+    "version": "1.0.0",
+    "container": {
+      "entrypoint": "python /app/calibrate.py",
+      "image": "your-dockerhub-username/agent-cleanser-tee",
+      "tag": "latest",
+      "checksum": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  }
+}
