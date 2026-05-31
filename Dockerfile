@@ -1,16 +1,21 @@
-FROM python:3.11-slim-buster
+FROM python:3.10-slim-buster
 
+# Prevent Python from writing .pyc files and enable unbuffered logging
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
-RUN pip install --no-cache-dir sympy==1.12
+# Install explicit, hardened dependency matrix
+RUN pip install --no-cache-dir \
+    numpy==1.26.4 \
+    pandas==2.2.2
 
-COPY ocean_router.py /app/ocean_router.py
-RUN chmod +x /app/ocean_router.py
+# Copy code asset into isolated container workspace
+COPY calibrate.py /app/calibrate.py
 
-USER 1000
+# Strip root privileges and run as a secure non-root TEE user
+RUN useradd -u 8888 appuser && chown -R appuser:appuser /app
+USER appuser
 
-ENTRYPOINT ["python3", "/app/ocean_router.py"]
+ENTRYPOINT ["python", "/app/calibrate.py"]
